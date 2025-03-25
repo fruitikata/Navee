@@ -50,4 +50,22 @@
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
+
+
+    function fetchGPSData() {
+    fetch('http://localhost/navee/get_loc.php')
+        .then(response => response.json())
+        .then(data => {
+
+
+            marker = L.marker([data.lat, data.lon]).addTo(map);
+
+            
+        })
+        .catch(error => console.error("Error fetching GPS data:", error));
+}
+
+//Fetch new data every 5 seconds
+setInterval(fetchGPSData, 5000);
+fetchGPSData();
 </script>
